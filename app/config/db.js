@@ -2,16 +2,13 @@ const mongoose = require('mongoose');
 
 const configdb = async () => {
   try {
-    const db = await mongoose.connect(
-      "mongodb://adminAnu:anu123@localhost:27017/?authSource=admin",
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }
+    const db =  mongoose.connect(
+      "mongodb+srv://anubrathnike_db_user:reFnCg3kIFuQgz2h@employee.piqjrjy.mongodb.net/?appName=employee"
+    
     );
     console.log("✅ Database connected");
-  } catch (error) {
-    console.error("❌ Database connection error:", error.message);
+  } catch (err) {
+    console.error("❌ Database connection error:", err.message);
   }
 };
 
