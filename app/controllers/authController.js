@@ -1,7 +1,7 @@
 const Employee = require('../models/employee');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
+const User = require('../models/users')
 const authController = {};
 
 authController.register = async (req, res) => {
@@ -53,7 +53,7 @@ authController.login = async (req, res) => {
 
 authController.getAccount = async (req, res) => {
     try {
-        const employee = await Employee.findById(req.user.id).select('-password');
+        const employee = await User.findById(req.user.id).select('-password');
         res.json(employee);
     } catch (err) {
         console.error(err);

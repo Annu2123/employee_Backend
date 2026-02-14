@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-
+const mongoose = require("mongoose")
 const EmployeeSchema = new Schema({
     name: { type: String, required: true },
     email: {
@@ -13,7 +13,8 @@ const EmployeeSchema = new Schema({
     phone: { type: String },
     salary: { type: Number, default: 0 },
     joiningDate: { type: Date, default: Date.now },
-    isVerified: { type: Boolean, default: false }
+    isVerified: { type: Boolean, default: false },
+    ownerId: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
 }, { timestamps: true });
 
 const Employee = model('Employee', EmployeeSchema);

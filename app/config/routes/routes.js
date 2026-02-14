@@ -5,7 +5,16 @@ const employeeController = require('../../controllers/employeeController');
 const attendanceController = require('../../controllers/attendanceController');
 const salaryController = require('../../controllers/salaryController');
 const { authenticateUser, authorizeRoles } = require('../middlewares/authentication');
+const userController = require('../../controllers/users/userControlller');
 
+
+//super owners routes
+router.get('/super_admin/owners', authenticateUser, authorizeRoles('super_admin'), userController.getOwners)
+router.post('/super_admin/owners/delete/:id', authenticateUser, authorizeRoles('super_admin'), userController.deleteOwner)
+router.post('/super_admin/owners/varify/:id', authenticateUser, authorizeRoles('super_admin'), userController.UpdateVarified)
+//user routes
+router.post('/auth/user/register', userController.register)
+router.post('/auth/user/login', userController.login)
 // Auth Routes
 router.post('/auth/register', authController.register);
 router.post('/auth/login', authController.login);

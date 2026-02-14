@@ -1,12 +1,15 @@
 const Employee = require('../models/employee');
 const bcryptjs = require('bcryptjs');
-
+const User = require("../models/users")
 const employeeController = {};
 
 // Create Employee (Owner only)
 employeeController.create = async (req, res) => {
+
     try {
         const body = req.body;
+        const user = req.user;
+        const findOwner = await User.findOne({ email: user.email });
         const existingEmployee = await Employee.findOne({ email: body.email });
         if (existingEmployee) {
             return res.status(400).json({ error: 'Email already exists' });
@@ -15,7 +18,7 @@ employeeController.create = async (req, res) => {
         const employee = new Employee(body);
         const salt = await bcryptjs.genSalt();
         employee.password = await bcryptjs.hash(employee.password, salt);
-
+        employee.ownerId = findOwner._id
         await employee.save();
         res.status(201).json(employee);
     } catch (err) {

@@ -9,10 +9,10 @@ attendanceController.mark = async (req, res) => {
         const body = req.body; // { employeeId, date, status }
         console.log(body, "body");
 
-        // Auto-populate day, month, year from date
+
         const dateObj = new Date(body.date);
         body.day = dateObj.getDate();
-        body.month = dateObj.getMonth() + 1; // 1-based month for storage/query simplicity? Or 0-based. Let's use 1-based to match typical human query.
+        body.month = dateObj.getMonth() + 1;
         body.year = dateObj.getFullYear();
 
         const attendance = new Attendence(body);
